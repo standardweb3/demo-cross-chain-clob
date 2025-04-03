@@ -92,12 +92,13 @@ To initiate a token transfer across chains:
 
 To test the cross-chain transfer, I recommend using the **USDC token**, as it’s widely supported across different TestNets.
 
- - USDC Token Address on Avalanche Fuji: `0x5425890298aed601595a70ab815c96711a31bc65`
- - USDC Token Address on Celo Alfajores: `0x2F25deB3848C207fc8E0c34035B3Ba7fC157602B`
+ - USDC Token Address on Arbitrum Sepolia: `0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d`
+ - USDC Token Address on Optimism Sepolia: `0x5fd84259d66Cd46123540766Be93DFE6D43130D7`
 
 You can obtain USDC on TestNets via the official USDC faucet:
 
  - [USDC Testnet Faucet](https://faucet.circle.com/)
+ - [ETH Testnet Faucet](https://www.alchemy.com/faucets)
 
  Once you have USDC, use the addresses above to transfer between TestNets.
 
