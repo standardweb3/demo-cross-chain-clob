@@ -3,6 +3,7 @@ pragma solidity ^0.8.13;
 
 import "lib/wormhole-solidity-sdk/src/WormholeRelayerSDK.sol";
 import "lib/wormhole-solidity-sdk/src/interfaces/IERC20.sol";
+import "@standardweb3/exchange/interfaces/IMatchingEngine.sol";
 
 contract CrossChainSender is TokenSender {
     uint256 constant GAS_LIMIT = 250_000;
@@ -23,6 +24,88 @@ contract CrossChainSender is TokenSender {
 
         // Total cost: delivery cost + cost of publishing the Wormhole message
         cost = deliveryCost + wormhole.messageFee();
+    }
+
+    function sendCrossChainLimitOrder(
+        uint16 targetChain, // Wormhole chain ID for the target chain
+        address targetReceiver, // Address of the TokenReceiver contract on the target chain
+        address recipient, // Recipient address on the target chain to receive the tokens and positions
+        address base, // base token address on target chain
+        address quote, // quote token address on target chain
+        address depositToken, // deposit token address on target chain
+        uint256 price, // limit price of the order
+        uint256 amount, // Amount of tokens to send
+        bool isBid, // whether the order is a bid or ask
+        bool isMaker, // whether the order is a maker or taker
+        uint n // matching count of the order
+    ) public payable {
+        // Get the cost for cross-chain deposit
+        uint256 cost = quoteCrossChainDeposit(targetChain);
+        require(msg.value == cost, "msg.value must equal quoteCrossChainDeposit(targetChain)");
+
+        // Transfer the specified amount of tokens from the user to this contract
+        // TODO: check if the deposit token is the same as the base or quote token on target chain
+        IERC20(depositToken).transferFrom(msg.sender, address(this), amount);
+
+        // Encode the function signature and parameters to submit to MatchingEngine to payload
+        bytes memory payload;
+        if (isBid) {
+            payload = abi.encodeWithSelector(IMatchingEngine.limitBuy.selector, base, quote, price, amount, isMaker, n, recipient);
+        } else {
+            payload = abi.encodeWithSelector(IMatchingEngine.limitSell.selector, base, quote, price, amount, isMaker, n, recipient);
+        }
+
+        // Use the Wormhole SDK to send the token and payload cross-chain
+        sendTokenWithPayloadToEvm(
+            targetChain,
+            targetReceiver, // Address on the target chain to send the token and payload
+            payload,
+            0, // Receiver value (set to 0 in this example)
+            GAS_LIMIT,
+            token, // Address of the IERC20 token contract
+            amount
+        );
+    }
+
+    function sendCrossChainLimitOrder(
+        uint16 targetChain, // Wormhole chain ID for the target chain
+        address targetReceiver, // Address of the TokenReceiver contract on the target chain
+        address recipient, // Recipient address on the target chain to receive the tokens and positions
+        address base, // base token address on target chain
+        address quote, // quote token address on target chain
+        address depositToken, // deposit token address on target chain
+        uint256 price, // limit price of the order
+        uint256 amount, // Amount of tokens to send
+        bool isBid, // whether the order is a bid or ask
+        bool isMaker, // whether the order is a maker or taker
+        uint n // matching count of the order
+    ) public payable {
+        // Get the cost for cross-chain deposit
+        uint256 cost = quoteCrossChainDeposit(targetChain);
+        require(msg.value == cost, "msg.value must equal quoteCrossChainDeposit(targetChain)");
+
+        // Transfer the specified amount of tokens from the user to this contract
+        // TODO: check if the deposit token is the same as the base or quote token on target chain
+        IERC20(depositToken).transferFrom(msg.sender, address(this), amount);
+
+        // Encode the function signature and parameters to submit to MatchingEngine to payload
+        bytes memory payload;
+        if (isBid) {
+            payload = abi.encodeWithSelector(IMatchingEngine.marketBuy.selector, base, quote, amount, isMaker, n, recipient);
+        } else {
+            payload = abi.encodeWithSelector(IMatchingEngine.marketSell.selector, base, quote, amount, isMaker, n, recipient);
+        }
+
+        // Use the Wormhole SDK to send the token and payload cross-chain
+        sendTokenWithPayloadToEvm(
+            targetChain,
+            targetReceiver, // Address on the target chain to send the token and payload
+            payload,
+            0, // Receiver value (set to 0 in this example)
+            GAS_LIMIT,
+            token, // Address of the IERC20 token contract
+            amount
+        );
     }
 
     // Function to send tokens and payload across chains
