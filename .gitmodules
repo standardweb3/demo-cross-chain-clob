@@ -4,3 +4,6 @@
 [submodule "lib/wormhole-solidity-sdk"]
 	path = lib/wormhole-solidity-sdk
 	url = https://github.com/wormhole-foundation/wormhole-solidity-sdk
+[submodule "lib/standard3.0-contracts"]
+	path = lib/standard3.0-contracts
+	url = https://github.com/standardweb3/standard3.0-contracts
