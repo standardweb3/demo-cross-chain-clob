@@ -1,0 +1,12 @@
+@erc725/=lib/standard3.0-contracts/node_modules/@erc725/
+@lukso/=lib/standard3.0-contracts/node_modules/@lukso/
+@openzeppelin/contracts-upgradeable/=lib/standard3.0-contracts/lib/openzeppelin-contracts-upgradeable/contracts/
+@openzeppelin/contracts/=lib/standard3.0-contracts/lib/openzeppelin-contracts-upgradeable/lib/openzeppelin-contracts/contracts/
+ds-test/=lib/standard3.0-contracts/lib/openzeppelin-contracts/lib/forge-std/lib/ds-test/src/
+erc4626-tests/=lib/standard3.0-contracts/lib/openzeppelin-contracts/lib/erc4626-tests/
+forge-std/=lib/standard3.0-contracts/lib/forge-std/src/
+openzeppelin-contracts-upgradeable/=lib/standard3.0-contracts/lib/openzeppelin-contracts-upgradeable/
+openzeppelin-contracts/=lib/standard3.0-contracts/lib/openzeppelin-contracts/
+openzeppelin-foundry-upgrades/=lib/standard3.0-contracts/lib/openzeppelin-foundry-upgrades/src/
+solidity-stringutils/=lib/standard3.0-contracts/lib/openzeppelin-foundry-upgrades/lib/solidity-stringutils/
+@standardweb3/=lib/standard3.0-contracts/src/
