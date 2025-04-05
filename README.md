@@ -1,6 +1,6 @@
-# Demo Cross-Chain Token Transfer
+# Demo Cross-Chain Limit Order
 
-This repository demonstrates how to deploy and interact with smart contracts for transferring ERC-20 tokens across different blockchains using the Wormhole Protocol. Additionally, it provides a utility to verify whether a token is attested on the target chain before attempting a cross-chain transfer. This ensures that the token can be transferred smoothly across chains using the Wormhole Bridge.
+This repository demonstrates how to deploy and interact with smart contracts for transferring ERC-20 tokens across different blockchains then setting spot positions with limit/market order on Standard, using the Wormhole Protocol. Additionally, it provides a utility to verify whether a token is attested on the target chain before attempting a cross-chain transfer. This ensures that the token can be transferred smoothly across chains using the Wormhole Bridge.
 
 For a complete tutorial on performing cross-chain token transfers from scratch, please take a look at the [Wormhole Cross-Chain Token Transfer Tutorial](https://wormhole.com/docs/tutorials/messaging/cross-chain-token-contracts/).
 
@@ -94,11 +94,13 @@ To test the cross-chain transfer, I recommend using the **USDC token**, as it’
 
  - USDC Token Address on Arbitrum Sepolia: `0x75faf114eafb1BDbe2F0316DF893fd58CE46AA4d`
  - USDC Token Address on Optimism Sepolia: `0x5fd84259d66Cd46123540766Be93DFE6D43130D7`
+ - USDC Token Address on Monad Testnet: `0xf817257fed379853cDe0fa4F97AB987181B1E5Ea`
 
 You can obtain USDC on TestNets via the official USDC faucet:
 
  - [USDC Testnet Faucet](https://faucet.circle.com/)
  - [ETH Testnet Faucet](https://www.alchemy.com/faucets)
+ - [Monad Testnet Faucet](https://testnet.monad.xyz)
 
  Once you have USDC, use the addresses above to transfer between TestNets.
 
